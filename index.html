@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Blitz 2.0 - E-Cell NIT Agartala</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <img src="images.jpeg" alt="E-Cell Logo" class="logo">
+        <h1>Startup Blitz 2.0</h1>
+        <p>Organized by E-Cell, NIT Agartala</p>
+        <button id="toggle-mode">Toggle Light/Dark Mode</button>
+    </header>
+
+    <section class="countdown">
+        <h2>Event Countdown</h2>
+        <div id="timer">
+            <div><span id="days"></span><br>Days</div>
+            <div><span id="hours"></span><br>Hours</div>
+            <div><span id="minutes"></span><br>Minutes</div>
+            <div><span id="seconds"></span><br>Seconds</div>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2>About the Event</h2>
+        <p>Startup Blitz 2.0 is a one-day entrepreneurial extravaganza that brings together innovators, investors, and mentors under one roof. Gear up for workshops, pitch battles, networking sessions, and a whole lot of inspiration!</p>
+    </section>
+
+    <section class="registration">
+        <h2>Register Now</h2>
+        <form id="registration-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <input type="text" id="college" placeholder="Your College" required>
+            <button type="submit">Register</button>
+        </form>
+        <div id="registration-success"></div>
+    </section>
+
+    <footer>
+        <p>© 2025 Entrepreneurship Cell, NIT Agartala. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

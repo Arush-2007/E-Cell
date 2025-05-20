@@ -1,10 +1,12 @@
 /* Import Harry Potter-style font */
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almendra+SC&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    cursor: url('magic-wand.png'), auto;
 }
 
 body {
@@ -14,6 +16,8 @@ body {
     color: #f5f5f5;
     padding: 20px;
     transition: background 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+    position: relative;
 }
 
 header {
@@ -32,6 +36,7 @@ header h1 {
     font-family: 'MedievalSharp', cursive;
     color: #ffcc00;
     text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+    animation: flicker 1.5s infinite alternate;
 }
 
 header p {
@@ -70,6 +75,14 @@ header p {
     background: rgba(255, 255, 255, 0.15);
     padding: 16px 22px;
     border-radius: 12px;
+    font-family: 'Almendra SC', serif;
+    transition: transform 0.3s ease;
+}
+
+#timer div:hover {
+    transform: scale(1.1);
+    color: #ffcc00;
+    text-shadow: 0 0 6px #fff, 0 0 12px #ffcc00;
 }
 
 .signup form {
@@ -98,16 +111,20 @@ header p {
     cursor: pointer;
     border-radius: 10px;
     margin-top: 12px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .signup button:hover {
     background-color: #dadada;
+    transform: scale(1.05);
 }
 
 #success-message {
     margin-top: 22px;
     font-size: 1.1rem;
     color: #90ee90;
+    font-style: italic;
+    text-shadow: 0 0 6px #90ee90;
 }
 
 footer {
@@ -135,6 +152,54 @@ body.dark .signup button {
     color: #ffffff;
 }
 
+/* Flickering Heading Animation */
+@keyframes flicker {
+    0% { opacity: 1; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+    50% { opacity: 0.6; text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000; }
+    100% { opacity: 1; text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000; }
+}
+
+/* Flying Star Elements */
+.flying-star {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle, #fff 0%, #ffcc00 100%);
+    border-radius: 50%;
+    animation: fly 5s linear forwards;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+@keyframes fly {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-800px) rotate(360deg) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* Sparkling Canvas */
+#sparkle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Magical Font Hover */
+.magic-hover:hover {
+    color: #ffcc00;
+    font-family: 'MedievalSharp', cursive;
+    text-shadow: 0 0 6px #fff, 0 0 12px #ffcc00;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
     #timer {
         flex-direction: column;

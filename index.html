@@ -1,52 +1,265 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startup Blitz 2.0 - E-Cell NIT Agartala</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Startup Blitz 2.0 - E-Cell NIT Agartala</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0c0c1d;
+      color: #ffffff;
+      overflow-x: hidden;
+      cursor: url('magic-wand.png'), auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo {
+      width: 100px;
+    }
+
+    h1, h2 {
+      font-family: 'MedievalSharp', cursive;
+      animation: flicker 2s infinite;
+    }
+
+    h1:hover, h2:hover, .prizes-heading:hover {
+      color: #fff;
+      text-shadow: 0 0 5px #fff, 0 0 10px #ff00ff, 0 0 15px #00ffff;
+      transition: all 0.3s ease;
+    }
+
+    @keyframes flicker {
+      0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        opacity: 1;
+      }
+      20%, 24%, 55% {
+        opacity: 0.4;
+      }
+    }
+
+    .countdown, .registration, .about, .about-ecell, .event-details, .prizes-container {
+      margin: 40px auto;
+      max-width: 800px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .form-vertical input, .form-vertical button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+    }
+
+    .form-vertical button {
+      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      color: white;
+      cursor: pointer;
+    }
+
+    .about-ecell-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .about, .about-ecell {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .prizes-heading {
+      font-size: 2rem;
+      animation: flicker 2s infinite;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    /* Flying Stars */
+    .flying-star {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(#fff, #00f, transparent);
+      border-radius: 50%;
+      animation: fly 5s linear infinite;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    @keyframes fly {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-300px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Canvas background for particles */
+    #sparkle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <img src="images.jpeg" alt="E-Cell Logo" class="logo">
-        <h1>Startup Blitz 2.0</h1>
-        <p>Organized by E-Cell, NIT Agartala</p>
-        <button id="toggle-mode">Toggle Light/Dark Mode</button>
-    </header>
+  <canvas id="sparkle-canvas"></canvas>
 
-    <section class="countdown">
-        <h2>Event Countdown</h2>
-        <div id="timer">
-            <div><span id="days"></span><br>Days</div>
-            <div><span id="hours"></span><br>Hours</div>
-            <div><span id="minutes"></span><br>Minutes</div>
-            <div><span id="seconds"></span><br>Seconds</div>
-        </div>
-    </section>
+  <header>
+    <img src="images.jpeg" alt="E-Cell Logo" class="logo" />
+    <h1>Startup Blitz 2.0</h1>
+    <h2 class="subheading">Convert your IDEA into INNOVATION</h2>
+    <p>Organized by E-Cell, NIT Agartala</p>
+    <button id="toggle-mode">Toggle Light/Dark Mode</button>
+  </header>
 
+  <section class="countdown">
+    <h2 id="countdown-heading">Event Countdown <span class="clock-emoji">🕰️</span></h2>
+    <div id="timer">
+      <div><span id="days">--</span><br />Days</div>
+      <div><span id="hours">--</span><br />Hours</div>
+      <div><span id="minutes">--</span><br />Minutes</div>
+      <div><span id="seconds">--</span><br />Seconds</div>
+    </div>
+  </section>
+
+  <section class="registration box-glow">
+    <h2>Register Now</h2>
+    <form id="registration-form" class="form-vertical">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="text" id="college" placeholder="Your College" required />
+      <button type="submit">Register</button>
+    </form>
+    <div id="registration-success"></div>
+  </section>
+
+  <section class="about-ecell-container">
     <section class="about">
-        <h2>About the Event</h2>
-        <p>Startup Blitz 2.0 is a one-day entrepreneurial extravaganza that brings together innovators, investors, and mentors under one roof. Gear up for workshops, pitch battles, networking sessions, and a whole lot of inspiration!</p>
+      <h2>About the Event</h2>
+      <p>
+        Startup Blitz 2.0 is a one-day entrepreneurial extravaganza that brings together innovators, investors, and mentors under one roof. Gear up for workshops, pitch battles, networking sessions, and a whole lot of inspiration!
+      </p>
     </section>
 
-    <section class="registration">
-        <h2>Register Now</h2>
-        <form id="registration-form">
-            <input type="text" id="name" placeholder="Your Name" required>
-            <input type="email" id="email" placeholder="Your Email" required>
-            <input type="text" id="college" placeholder="Your College" required>
-            <button type="submit">Register</button>
-        </form>
-        <div id="registration-success"></div>
+    <section class="about-ecell">
+      <h2>About E-cell</h2>
+      <p>
+        E-cell is a vibrant entrepreneurial community at NIT Agartala fostering innovation, startups, and mentorship for aspiring entrepreneurs.
+      </p>
     </section>
+  </section>
 
-    <footer>
-        <p>© 2025 Entrepreneurship Cell, NIT Agartala. All rights reserved.</p>
-    </footer>
+  <section class="event-details white-text">
+    <h2>Event Details</h2>
+    <p>
+      <strong>Date:</strong> 15th June 2025<br />
+      <strong>Time:</strong> 10:00 AM - 6:00 PM<br />
+      <strong>Venue:</strong> NIT Agartala Auditorium<br />
+      <strong>Activities:</strong> Workshops, Startup Pitch Battles, Networking, and more!
+    </p>
+  </section>
 
-    <script src="script.js"></script>
+  <section class="prizes-container">
+    <div class="prizes-heading">Prizes 🪄</div>
+    <p>
+      Exciting magical prizes await the winners, including limited edition collectibles, vouchers, and more. Get ready to claim your reward!
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2025 Entrepreneurship Cell, NIT Agartala. All rights reserved.</p>
+  </footer>
+
+  <audio id="magic-sound" src="magic.mp3" preload="auto"></audio>
+
+  <script>
+    // Magic sound on form submit
+    document.getElementById('registration-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      document.getElementById('magic-sound').play();
+      document.getElementById('registration-success').textContent = "Registered successfully with magic! ✨";
+    });
+
+    // Flying stars
+    setInterval(() => {
+      const star = document.createElement("div");
+      star.className = "flying-star";
+      star.style.left = Math.random() * window.innerWidth + "px";
+      star.style.top = window.innerHeight + "px";
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 5000);
+    }, 1000);
+
+    // Sparkling particle canvas
+    const canvas = document.getElementById('sparkle-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 1,
+        d: Math.random() * 1
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      ctx.beginPath();
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        ctx.moveTo(p.x, p.y);
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+      }
+      ctx.fill();
+      updateParticles();
+    }
+
+    function updateParticles() {
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        p.y -= p.d;
+        if (p.y < 0) {
+          p.y = canvas.height;
+          p.x = Math.random() * canvas.width;
+        }
+      }
+    }
+
+    setInterval(drawParticles, 33);
+  </script>
 </body>
 </html>
